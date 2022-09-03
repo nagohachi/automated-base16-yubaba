@@ -35,7 +35,6 @@ class AutomatedBase16Yubaba:
         self._aburaya_data.to_csv(input_file_name, index=False, encoding="cp932")
         print("\n湯婆婆: 次の方～")
 
-
 def main() -> None:
     yubaba = AutomatedBase16Yubaba()
     yubaba.explain_operation()
@@ -43,7 +42,6 @@ def main() -> None:
         old_name = input("あなた: ")
         yubaba.rename(old_name)
         time.sleep(0.2)
-
 
 if __name__ == "__main__":
     main()
