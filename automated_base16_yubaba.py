@@ -4,7 +4,7 @@ from math import isnan
 import csv
 import pandas as pd
 
-class AutomatedYubaba:
+class AutomatedBase16Yubaba:
     def __init__(self, input_file_name="aburaya_data.csv") -> None:
         self.columns = ["old_name", "new_name"]
         if not os.path.isfile(input_file_name):
@@ -37,7 +37,7 @@ class AutomatedYubaba:
 
 
 def main() -> None:
-    yubaba = AutomatedYubaba()
+    yubaba = AutomatedBase16Yubaba()
     yubaba.explain_operation()
     while True:
         old_name = input("あなた: ")
