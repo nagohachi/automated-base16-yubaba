@@ -11,11 +11,11 @@ class AutomatedBase16Yubaba:
             with open(input_file_name, 'w') as f:
                 writer = csv.writer(f)
                 writer.writerow(self.columns)
-        self._aburaya_data = pd.read_csv(input_file_name)
+        self._aburaya_data = pd.read_csv(input_file_name, encoding="cp932")
 
     def explain_operation(self) -> None:
         print("\n湯婆婆: お前の名前をターミナルから標準入力でお入れ。入れ終わったら Enter をお押し\n")
-    
+
     def get_next_name(self) -> int:
         if isnan(self._aburaya_data["new_name"].max()):
             return 0
@@ -23,6 +23,13 @@ class AutomatedBase16Yubaba:
     
     def point_out_extravagant_name(self, new_name, old_name) -> None:
         print("湯婆婆: {0}というのかい？贅沢な名だね。\n湯婆婆: 今からお前の名は{1}だ。いいかい、{1}だよ。\n湯婆婆: 分かったら返事をするんだ、{1}！".format(old_name, hex(new_name)))
+
+    def is_old_name_valid(self, old_name) -> bool:
+        space_deleted_name = old_name.replace(" ", "").replace("　", "").replace("\t", "")
+        if not space_deleted_name:
+            print("ちゃんと名前をお入れ！")
+            return False
+        return True
     
     def rename(self, old_name, input_file_name="aburaya_data.csv") -> None:
         new_name = self.get_next_name()
@@ -40,6 +47,8 @@ def main() -> None:
     yubaba.explain_operation()
     while True:
         old_name = input("あなた: ")
+        if not yubaba.is_old_name_valid(old_name):
+            continue
         yubaba.rename(old_name)
         time.sleep(0.2)
 
